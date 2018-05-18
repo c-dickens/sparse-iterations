@@ -3,6 +3,6 @@
     "n_samples": 2,
     "min_data_instance" : 10,
     "max_data_instance" : 17,
-    "column_fraction" : 250,
-    "density" : 0.2
+    "column_fraction" : 1000,
+    "density" : 0.1
 }

@@ -113,22 +113,29 @@ def srht_transform(input_matrix, sketch_size, seed=None):
 
 if __name__== "__main__":
     import time
+    import scipy.sparse as sparse
     from tabulate import tabulate
 
     seed = np.random.seed(1)
 
-    A = np.random.randn(1000, 50)
+    #A = np.random.randn(1000, 50)
+    A = sparse.random(50000, 100, 1.0).toarray()
     x = np.random.randn(A.shape[1])
     true_norm = np.linalg.norm(A@x,ord=2)**2
 
     
     start = time.time()
-    S_A = srht_transform(input_matrix=A, sketch_size=300, seed=seed)
+    S_A = srht_transform(input_matrix=A, sketch_size=500, seed=seed)
     duration =  time.time() - start
     approx_norm = np.linalg.norm(S_A@x, ord=2)**2
     relative_error = approx_norm / true_norm
 
-    print(tabulate([["SRHT", relative_error, duration]],
+    true_cov_norm = np.linalg.norm(A.T@A,ord='fro')**2
+    sketch_norm = np.linalg.norm(S_A.T@S_A, ord='fro')**2
+    mat_rel_error = sketch_norm/true_cov_norm
+    
+    print(tabulate([["SRHT", relative_error, duration],
+                    ['SRHT', mat_rel_error, 'N/A']],
                    headers=['Sketch type', 'Relative Error', 'Time'],
                    tablefmt='orgtbl'))
 

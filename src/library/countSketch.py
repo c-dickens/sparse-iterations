@@ -5,6 +5,21 @@ from scipy.sparse import coo_matrix
 import numba
 from numba import jit
 
+@jit(nopython=True)
+def countSketch_elt_stream(matrixA, sketch_size):
+    n,d = matrixA.shape
+    sketch = np.zeros((sketch_size,d))
+    nonzero_rows, nonzero_cols = np.nonzero(matrixA)
+    hashedIndices = np.random.choice(sketch_size, n, replace=True)
+    randSigns = np.random.choice(2, n, replace=True) * 2 - 1
+    for ii,jj in zip(nonzero_rows,nonzero_cols):
+        bucket = hashedIndices[ii]
+        sketch[bucket, jj] += randSigns[ii]*matrixA[ii,jj]
+    return sketch
+
+
+
+
 
 @jit(nopython=True) # comment this if want just numpy
 def countSketch(input_rows, input_data,
@@ -70,38 +85,38 @@ if __name__=="__main__":
     from tabulate import tabulate
 
 
-    matrix = sparse.random(50000, 100, 1.0)
+    matrix = sparse.random(50000, 1000, 1)
     x = np.random.randn(matrix.shape[1])
     true_norm = np.linalg.norm(matrix@x,ord=2)**2
-    cov_mat = matrix.T@matrix
-    matrix_norm = np.linalg.norm(cov_mat.toarray(), ord='fro')**2
+    cov_mat = matrix.T.toarray()@matrix.toarray()
+    matrix_norm = np.linalg.norm(cov_mat, ord='fro')**2
     tidy_data =  sort_row_order(matrix)
 
-    sketch_size = 500
+    sketch_size = 2500
     start = time.time()
-    hashed_rows, sketched_data = countSketch(tidy_data[0],\
-                                            tidy_data[2], matrix.nnz,sketch_size)
+    #hashed_rows, sketched_data = countSketch(tidy_data[0],\
+    #                                        tidy_data[2], matrix.nnz,sketch_size)
     duration_slow = time.time() - start
-    S_A = sparse.coo_matrix((sketched_data, (hashed_rows,matrix.col)))
-    approx_norm_slow = np.linalg.norm(S_A@x,ord=2)**2
-    rel_error_slow = approx_norm_slow/true_norm
+    #S_A = sparse.coo_matrix((sketched_data, (hashed_rows,matrix.col)))
+    #approx_norm_slow = np.linalg.norm(S_A@x,ord=2)**2
+    #rel_error_slow = approx_norm_slow/true_norm
     #print("Sketch time: {}".format(duration_slow))
     start = time.time()
-    hashed_rows, sketched_data = countSketch(tidy_data[0],\
-                                            tidy_data[2], matrix.nnz,sketch_size)
+    #hashed_rows, sketched_data = countSketch(tidy_data[0],\
+    #                                        tidy_data[2], matrix.nnz,sketch_size)
     duration = time.time() - start
     #print("Sketch time: {}".format(duration))
-    S_A = sparse.coo_matrix((sketched_data, (hashed_rows,matrix.col))).toarray()
-    approx_norm = np.linalg.norm(S_A@x,ord=2)**2
-    rel_error = approx_norm/true_norm
+    #S_A = sparse.coo_matrix((sketched_data, (hashed_rows,matrix.col))).toarray()
+    #approx_norm = np.linalg.norm(S_A@x,ord=2)**2
+    #rel_error = approx_norm/true_norm
     #print("Relative norms: {}".format(approx_norm/true_norm))
-    sketched_cov_mat = S_A.T@S_A
+    #sketched_cov_mat = S_A.T@S_A
     start = time.time()
-    approx_matrix_norm = np.linalg.norm(sketched_cov_mat, ord='fro')**2
-    matrix_duration = time.time() - start
-    diff = np.linalg.norm(sketched_cov_mat - cov_mat, ord='fro')
+    #approx_matrix_norm = np.linalg.norm(sketched_cov_mat, ord='fro')**2
+    #matrix_duration = time.time() - start
+    #diff = np.linalg.norm(sketched_cov_mat - cov_mat, ord='fro')
     #mat_rel_error = diff/(3*matrix_norm)
-    mat_rel_error = approx_matrix_norm / matrix_norm
+    #mat_rel_error = approx_matrix_norm / matrix_norm
 
     # Streaming approach
     # Dry run
@@ -115,11 +130,13 @@ if __name__=="__main__":
     sketch_mat_norm = np.linalg.norm(S_A.T@S_A,ord=2)**2
     new_mat_rel_error = sketch_mat_norm/matrix_norm
 
-
-    print(tabulate([[duration_slow, rel_error_slow, 'Yes'],
-                    [duration, rel_error, 'No'],
-                    [matrix_duration, mat_rel_error, 'No'],
-                    [second_time, new_rel_error, 'Yes'],
-                    [second_time, new_mat_rel_error, 'Yes']],
-                    headers=['Sketch Time', 'Relative Error', 'Dry Run'],
-                    tablefmt='orgtbl'))
+    print("Time: {}".format(second_time))
+    print("Mat-vec rel error: {}".format(new_rel_error))
+    print("Mat-mat rel error: {}".format(new_mat_rel_error))
+    #print(tabulate([[duration_slow, rel_error_slow, 'Yes'],
+    #                [duration, rel_error, 'No'],
+    #                [matrix_duration, mat_rel_error, 'No'],
+    #                [second_time, new_rel_error, 'Yes'],
+    #                [second_time, new_mat_rel_error, 'Yes']],
+    #                headers=['Sketch Time', 'Relative Error', 'Dry Run'],
+    #                tablefmt='orgtbl'))

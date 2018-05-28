@@ -1,0 +1,1334 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{sparsity-scaling}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Investigating how Count Sketch scales with input
+sparsity}\label{investigating-how-count-sketch-scales-with-input-sparsity}
+
+Key questions: 1. CountSketch (CWT) takes time \(O(\text{nnz}(A))\) to
+apply to summarise a matrix, how does this scale on fixed design
+matrices as the density (\(\rho\)) is varied from \(0 < \rho \le 1\)? 2.
+How does the SRHT scale with sparsity/density? Ideally this should be
+near constant.
+
+Hadamard implementation taken from
+https://bitbucket.org/vegarant/fastwht
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}import sys            \PYZsh{} calls the functions from above }
+        \PY{c+c1}{\PYZsh{}sys.path.append(\PYZdq{}..\PYZdq{}) \PYZsh{} directory instead of having them in the notebook.}
+        
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{scipy} \PY{k}{as} \PY{n+nn}{sp}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{sparse}
+        \PY{k+kn}{import} \PY{n+nn}{numba}
+        \PY{k+kn}{from} \PY{n+nn}{numba} \PY{k}{import} \PY{n}{jit}
+        \PY{k+kn}{import} \PY{n+nn}{itertools}
+        \PY{k+kn}{from} \PY{n+nn}{timeit} \PY{k}{import} \PY{n}{default\PYZus{}timer}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n+nd}{@jit}\PY{p}{(}\PY{n}{nopython}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{k}{def} \PY{n+nf}{countSketch}\PY{p}{(}\PY{n}{input\PYZus{}matrix}\PY{p}{,} \PY{n}{sketch\PYZus{}size}\PY{p}{,}\PY{n}{seed}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+            
+            \PY{c+c1}{\PYZsh{}np.random.seed(seed)}
+            \PY{n}{n}\PY{p}{,}\PY{n}{d} \PY{o}{=} \PY{n}{input\PYZus{}matrix}\PY{o}{.}\PY{n}{shape}
+            \PY{n}{sketch} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{sketch\PYZus{}size}\PY{p}{,}\PY{n}{d}\PY{p}{)}\PY{p}{)}
+            \PY{n}{nonzero\PYZus{}rows}\PY{p}{,} \PY{n}{nonzero\PYZus{}cols} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nonzero}\PY{p}{(}\PY{n}{input\PYZus{}matrix}\PY{p}{)}
+            \PY{n}{hashed\PYZus{}indices} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{sketch\PYZus{}size}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{n}{replace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} Generates entrie is 2*[0,1] \PYZhy{} 1 == \PYZob{}\PYZhy{}1,1\PYZcb{}}
+            \PY{n}{random\PYZus{}signs} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{a}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{n}{n}\PY{p}{,} \PY{n}{replace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+            
+            \PY{k}{for} \PY{n}{ii}\PY{p}{,}\PY{n}{jj} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{nonzero\PYZus{}rows}\PY{p}{,}\PY{n}{nonzero\PYZus{}cols}\PY{p}{)}\PY{p}{:}
+                \PY{n}{bucket} \PY{o}{=} \PY{n}{hashed\PYZus{}indices}\PY{p}{[}\PY{n}{ii}\PY{p}{]}
+                \PY{n}{sketch}\PY{p}{[}\PY{n}{bucket}\PY{p}{,} \PY{n}{jj}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{random\PYZus{}signs}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{o}{*}\PY{n}{input\PYZus{}matrix}\PY{p}{[}\PY{n}{ii}\PY{p}{,}\PY{n}{jj}\PY{p}{]}                                                        
+            \PY{k}{return} \PY{n}{sketch}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{from} \PY{n+nn}{hadamard} \PY{k}{import} \PY{n}{fastwht}
+        
+        \PY{k}{def} \PY{n+nf}{shift\PYZus{}bit\PYZus{}length}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Given int x find next largest power of 2.                                                              }
+        \PY{l+s+sd}{    If x is a power of 2 then x is returned \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{k}{return} \PY{l+m+mi}{1}\PY{o}{\PYZlt{}\PYZlt{}}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{bit\PYZus{}length}\PY{p}{(}\PY{p}{)}
+        
+        
+        \PY{k}{def} \PY{n+nf}{srht\PYZus{}transform}\PY{p}{(}\PY{n}{input\PYZus{}matrix}\PY{p}{,} \PY{n}{sketch\PYZus{}size}\PY{p}{,} \PY{n}{seed}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{        Generate a sketching matrix S to reduce the sample count (i.e. sketching                               }
+        \PY{l+s+sd}{        on the LHS of data) via the Subsampled Hadamard Transform.                                                }
+        \PY{l+s+sd}{                                                                                                              }
+        \PY{l+s+sd}{        Given an input\PYZus{}matrix ``A`` of size ``(n, d)``, compute a matrix ``A\PYZsq{}`` of                                }
+        \PY{l+s+sd}{        size (sketch\PYZus{}size, d) which holds:                                                                        }
+        \PY{l+s+sd}{        .. math:: ||Ax|| = (1 \PYZbs{}pm \PYZbs{}epsilon)||A\PYZsq{}x||                                                                }
+        \PY{l+s+sd}{        with high probability. [1]                                                                                }
+        \PY{l+s+sd}{        The error is related to the number of rows of the sketch and it is bounded}
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{        Parameters                                                                                                }
+        \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}                                                                                                }
+        \PY{l+s+sd}{        input\PYZus{}matrix: ndarray                                                                                  }
+        \PY{l+s+sd}{            Input matrix, of shape ``(n, d)``.                                                                    }
+        \PY{l+s+sd}{        sketch\PYZus{}size: int                                                                                          }
+        \PY{l+s+sd}{            Number of rows for the sketch.                                                                        }
+        \PY{l+s+sd}{        seed : None or int or `numpy.random.RandomState` instance, optional                                       }
+        \PY{l+s+sd}{            This parameter defines the ``RandomState`` object to use for drawing                                  }
+        \PY{l+s+sd}{            random variates.                                                                                      }
+        \PY{l+s+sd}{            If None (or ``np.random``), the global ``np.random`` state is used.                                   }
+        \PY{l+s+sd}{            If integer, it is used to seed the local ``RandomState`` instance.                                    }
+        \PY{l+s+sd}{            Default is None.                                                                                      }
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{        Returns                                                                                                   }
+        \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}                                                                                                   }
+        \PY{l+s+sd}{        S\PYZus{}A : ndarray                                                                                          }
+        \PY{l+s+sd}{            Sketch of the input matrix ``A``, of size ``(sketch\PYZus{}size, d)``.                                       }
+        \PY{l+s+sd}{                                                                                                                                                   }
+        \PY{l+s+sd}{                                                                                                              }
+        \PY{l+s+sd}{        References }
+        \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{l+s+sd}{        [1] \PYZhy{} https://arxiv.org/abs/1411.4357                                                                     }
+        \PY{l+s+sd}{        [2] \PYZhy{} https://bitbucket.org/vegarant/fastwht }
+        \PY{l+s+sd}{        \PYZsq{}\PYZsq{}\PYZsq{}}
+                \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{seed}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{} Mutliplying rows by random signs}
+                \PY{n}{nrows} \PY{o}{=} \PY{n}{input\PYZus{}matrix}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n}{diag} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{nrows}\PY{p}{)}
+                \PY{n}{diag} \PY{o}{=} \PY{n}{diag}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{k+kc}{None}\PY{p}{]}                                                            
+                \PY{n}{signed\PYZus{}mat} \PY{o}{=} \PY{n}{diag}\PY{o}{*}\PY{n}{input\PYZus{}matrix}
+                
+                \PY{c+c1}{\PYZsh{} Hadamard transform}
+                \PY{n}{S} \PY{o}{=} \PY{n}{shift\PYZus{}bit\PYZus{}length}\PY{p}{(}\PY{n}{nrows}\PY{p}{)}\PY{o}{*}\PY{n}{fastwht}\PY{p}{(}\PY{n}{signed\PYZus{}mat}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} subsampling}
+                \PY{n}{sample} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{nrows}\PY{p}{,} \PY{n}{sketch\PYZus{}size}\PY{p}{,} \PY{n}{replace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+                \PY{n}{sample}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+                \PY{n}{S} \PY{o}{=} \PY{n}{S}\PY{p}{[}\PY{n}{sample}\PY{p}{]}
+                \PY{n}{S} \PY{o}{=} \PY{p}{(}\PY{n}{sketch\PYZus{}size}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{o}{*}\PY{n}{S}
+                \PY{k}{return} \PY{n}{S}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Quick test to make sure both working}
+        \PY{c+c1}{\PYZsh{} .toarray() convert to numpy array for the SRHT}
+        \PY{n}{A} \PY{o}{=} \PY{n}{sparse}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{l+m+mi}{5000}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mf}{0.25}\PY{p}{)}\PY{o}{.}\PY{n}{toarray}\PY{p}{(}\PY{p}{)} 
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{A}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{n}{sketch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{500}
+        
+        \PY{c+c1}{\PYZsh{} Sketching}
+        \PY{n}{CWT\PYZus{}A} \PY{o}{=} \PY{n}{countSketch}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{sketch\PYZus{}size}\PY{p}{,}\PY{n}{seed}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{SRHT\PYZus{}A} \PY{o}{=} \PY{n}{srht\PYZus{}transform}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{sketch\PYZus{}size}\PY{p}{,}\PY{n}{seed}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} norm preservation}
+        \PY{n}{true\PYZus{}mat\PYZus{}vec\PYZus{}norm} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{A}\PY{n+nd}{@x}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+        \PY{n}{true\PYZus{}mat\PYZus{}mat\PYZus{}norm} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{A}\PY{o}{.}\PY{n}{T}\PY{n+nd}{@A}\PY{p}{,} \PY{n+nb}{ord}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+        
+        \PY{n}{CWT\PYZus{}mat\PYZus{}vec\PYZus{}norm} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{CWT\PYZus{}A}\PY{n+nd}{@x}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+        \PY{n}{CWT\PYZus{}mat\PYZus{}mat\PYZus{}norm} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{CWT\PYZus{}A}\PY{o}{.}\PY{n}{T}\PY{n+nd}{@CWT\PYZus{}A}\PY{p}{,} \PY{n+nb}{ord}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+        
+        \PY{n}{CWT\PYZus{}mat\PYZus{}vec\PYZus{}rel\PYZus{}error} \PY{o}{=} \PY{n}{CWT\PYZus{}mat\PYZus{}vec\PYZus{}norm} \PY{o}{/} \PY{n}{true\PYZus{}mat\PYZus{}vec\PYZus{}norm}
+        \PY{n}{CWT\PYZus{}mat\PYZus{}mat\PYZus{}rel\PYZus{}error} \PY{o}{=} \PY{n}{CWT\PYZus{}mat\PYZus{}mat\PYZus{}norm} \PY{o}{/} \PY{n}{true\PYZus{}mat\PYZus{}mat\PYZus{}norm}
+        
+        \PY{n}{SRHT\PYZus{}mat\PYZus{}vec\PYZus{}norm} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{SRHT\PYZus{}A}\PY{n+nd}{@x}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+        \PY{n}{SRHT\PYZus{}mat\PYZus{}mat\PYZus{}norm} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{SRHT\PYZus{}A}\PY{o}{.}\PY{n}{T}\PY{n+nd}{@SRHT\PYZus{}A}\PY{p}{,} \PY{n+nb}{ord}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+        
+        \PY{n}{SRHT\PYZus{}mat\PYZus{}vec\PYZus{}rel\PYZus{}error} \PY{o}{=} \PY{n}{SRHT\PYZus{}mat\PYZus{}vec\PYZus{}norm} \PY{o}{/} \PY{n}{true\PYZus{}mat\PYZus{}vec\PYZus{}norm}
+        \PY{n}{SRHT\PYZus{}mat\PYZus{}mat\PYZus{}rel\PYZus{}error} \PY{o}{=} \PY{n}{SRHT\PYZus{}mat\PYZus{}mat\PYZus{}norm} \PY{o}{/} \PY{n}{CWT\PYZus{}mat\PYZus{}mat\PYZus{}norm}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CWT}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Inner product relative error: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{CWT\PYZus{}mat\PYZus{}vec\PYZus{}rel\PYZus{}error}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hessian matrix relative error: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{CWT\PYZus{}mat\PYZus{}mat\PYZus{}rel\PYZus{}error}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{*}\PY{l+m+mi}{25}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SRHT}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Inner product relative error: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{SRHT\PYZus{}mat\PYZus{}vec\PYZus{}rel\PYZus{}error}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hessian matrix relative error: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{SRHT\PYZus{}mat\PYZus{}mat\PYZus{}rel\PYZus{}error}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CWT
+Inner product relative error: 1.0650216162528239
+Hessian matrix relative error: 1.1089184370719902
+--------------------------------------------------
+SRHT
+Inner product relative error: 0.9618759362015921
+Hessian matrix relative error: 1.0683334356038363
+
+    \end{Verbatim}
+
+    Now we will experiment by exploring how varying the density of the data
+affects the time to apply a sketch. The density is measured as the
+fraction of nonzeros in the matrix.
+
+Setup: * Design matrix \(A\) of size \((n,d)\) to be determined at the
+start of the experiment. * Fix a sketch size. Currently used \(10d\) but
+can vary this in the call to \texttt{test\_time\_sparsity} * Fix an
+input density \(0 < \rho \le 1\) * Take \texttt{num\_trials} number of
+repeats and measure the mean time taken to perform the summarisation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Control parameters}
+        \PY{n}{n}\PY{p}{,}\PY{n}{d} \PY{o}{=} \PY{l+m+mi}{100000}\PY{p}{,} \PY{l+m+mi}{50}
+        \PY{n}{data\PYZus{}densities} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mf}{0.05}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.25}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.75}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}
+        \PY{n}{sketch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{500}
+        
+        \PY{n}{num\PYZus{}trials} \PY{o}{=} \PY{l+m+mi}{5}
+        
+        
+        \PY{c+c1}{\PYZsh{} Measurable times}
+        \PY{n}{rho\PYZus{}str} \PY{o}{=} \PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{density}\PY{p}{)} \PY{k}{for} \PY{n}{density} \PY{o+ow}{in} \PY{n}{data\PYZus{}densities}\PY{p}{]}
+        \PY{n}{CWT\PYZus{}time} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{n}{SRHT\PYZus{}time} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        
+        
+        \PY{k}{for} \PY{n}{density} \PY{o+ow}{in} \PY{n}{data\PYZus{}densities}\PY{p}{:}
+            \PY{n}{A} \PY{o}{=} \PY{n}{sparse}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{d}\PY{p}{,}\PY{n}{density}\PY{p}{)}\PY{o}{.}\PY{n}{toarray}\PY{p}{(}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing density}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{density}\PY{p}{)}
+            \PY{k}{for} \PY{n}{trial} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}trials}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Trial no. }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{trial}\PY{p}{)}
+                \PY{n}{CWT\PYZus{}summary\PYZus{}time} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{n}{SRHT\PYZus{}summary\PYZus{}time} \PY{o}{=} \PY{l+m+mi}{0}
+            
+                \PY{n}{start} \PY{o}{=} \PY{n}{default\PYZus{}timer}\PY{p}{(}\PY{p}{)}
+                \PY{n}{CWT\PYZus{}A} \PY{o}{=} \PY{n}{countSketch}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{sketch\PYZus{}size}\PY{p}{,}\PY{n}{seed}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+                \PY{n}{CWT\PYZus{}summary\PYZus{}time} \PY{o}{+}\PY{o}{=} \PY{n}{default\PYZus{}timer}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{start}
+                
+            
+                \PY{n}{start} \PY{o}{=} \PY{n}{default\PYZus{}timer}\PY{p}{(}\PY{p}{)}
+                \PY{n}{SRHT\PYZus{}A} \PY{o}{=} \PY{n}{srht\PYZus{}transform}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{sketch\PYZus{}size}\PY{p}{,} \PY{n}{seed}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+                \PY{n}{SRHT\PYZus{}summary\PYZus{}time} \PY{o}{=} \PY{n}{default\PYZus{}timer}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{start}
+            
+            \PY{n}{CWT\PYZus{}time}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{density}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{CWT\PYZus{}summary\PYZus{}time}\PY{o}{/}\PY{n}{num\PYZus{}trials}
+            \PY{n}{SRHT\PYZus{}time}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{density}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{SRHT\PYZus{}summary\PYZus{}time}\PY{o}{/}\PY{n}{num\PYZus{}trials}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Testing density 0.01
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.05
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.1
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.25
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.5
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.75
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 1.0
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{250}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sketch time vs Data density}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{o}{*}\PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{CWT\PYZus{}time}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CWT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{o}{*}\PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{SRHT\PYZus{}time}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SRHT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Density}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time (seconds)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} <matplotlib.legend.Legend at 0x7f2838252470>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{test\PYZus{}time\PYZus{}sparsity}\PY{p}{(}\PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols}\PY{p}{,} \PY{n}{n\PYZus{}trials}\PY{p}{,} \PY{n}{sketch\PYZus{}size}\PY{p}{,} \PY{n}{densities}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    Function to automate the experiments measuring time }
+        \PY{l+s+sd}{    and varying sparsity for given input data.}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    Inputs: n\PYZus{}rows, n\PYZus{}cols, n\PYZus{}trials, sketch\PYZus{}size all int}
+        \PY{l+s+sd}{            densities \PYZhy{} list of densities to try}
+        \PY{l+s+sd}{            }
+        \PY{l+s+sd}{    Output: Two dictionaries with key as density value tested and}
+        \PY{l+s+sd}{    then the times associated with testing that experiment.}
+        \PY{l+s+sd}{    One dict for CWT and one for SRHT.\PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{rho\PYZus{}str} \PY{o}{=} \PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{density}\PY{p}{)} \PY{k}{for} \PY{n}{density} \PY{o+ow}{in} \PY{n}{densities}\PY{p}{]}
+            \PY{n}{CWT\PYZus{}time} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+            \PY{n}{SRHT\PYZus{}time} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        
+        
+            \PY{k}{for} \PY{n}{density} \PY{o+ow}{in} \PY{n}{data\PYZus{}densities}\PY{p}{:}
+                \PY{n}{A} \PY{o}{=} \PY{n}{sparse}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{d}\PY{p}{,}\PY{n}{density}\PY{p}{)}\PY{o}{.}\PY{n}{toarray}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing density}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{density}\PY{p}{)}
+                \PY{k}{for} \PY{n}{trial} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}trials}\PY{p}{)}\PY{p}{:}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Trial no. }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{trial}\PY{p}{)}
+                    \PY{n}{CWT\PYZus{}summary\PYZus{}time} \PY{o}{=} \PY{l+m+mi}{0}
+                    \PY{n}{SRHT\PYZus{}summary\PYZus{}time} \PY{o}{=} \PY{l+m+mi}{0}
+            
+                    \PY{n}{start} \PY{o}{=} \PY{n}{default\PYZus{}timer}\PY{p}{(}\PY{p}{)}
+                    \PY{n}{CWT\PYZus{}A} \PY{o}{=} \PY{n}{countSketch}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{sketch\PYZus{}size}\PY{p}{,}\PY{n}{seed}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+                    \PY{n}{CWT\PYZus{}summary\PYZus{}time} \PY{o}{+}\PY{o}{=} \PY{n}{default\PYZus{}timer}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{start}
+                
+            
+                    \PY{n}{start} \PY{o}{=} \PY{n}{default\PYZus{}timer}\PY{p}{(}\PY{p}{)}
+                    \PY{n}{SRHT\PYZus{}A} \PY{o}{=} \PY{n}{srht\PYZus{}transform}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{sketch\PYZus{}size}\PY{p}{,} \PY{n}{seed}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+                    \PY{n}{SRHT\PYZus{}summary\PYZus{}time} \PY{o}{=} \PY{n}{default\PYZus{}timer}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{start}
+            
+                \PY{n}{CWT\PYZus{}time}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{density}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{CWT\PYZus{}summary\PYZus{}time}\PY{o}{/}\PY{n}{num\PYZus{}trials}
+                \PY{n}{SRHT\PYZus{}time}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{density}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{SRHT\PYZus{}summary\PYZus{}time}\PY{o}{/}\PY{n}{num\PYZus{}trials}
+            
+            \PY{k}{return} \PY{n}{CWT\PYZus{}time}\PY{p}{,} \PY{n}{SRHT\PYZus{}time}
+\end{Verbatim}
+
+
+    \paragraph{\texorpdfstring{Testing
+\(n=100000\).}{Testing n=100000.}}\label{testing-n100000.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num trials}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{5}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rows}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{p}{[}\PY{l+m+mi}{100000}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{250}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{density}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{p}{[}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.25}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n}{results} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         
+         \PY{k}{for} \PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols} \PY{o+ow}{in} \PY{n}{itertools}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{n}{param\PYZus{}grid}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rows}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{n\PYZus{}trials} \PY{o}{=} \PY{n}{param\PYZus{}grid}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing design matrix (}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols}\PY{p}{)}\PY{p}{)}
+             \PY{n}{sketch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{n}{n\PYZus{}cols}
+             \PY{n}{C\PYZus{}T}\PY{p}{,} \PY{n}{S\PYZus{}T} \PY{o}{=}  \PY{n}{test\PYZus{}time\PYZus{}sparsity}\PY{p}{(}\PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols}\PY{p}{,} \PY{n}{n\PYZus{}trials}\PY{p}{,}\PY{n}{sketch\PYZus{}size}\PY{p}{,}\PY{n}{param\PYZus{}grid}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{density}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{results}\PY{p}{[}\PY{p}{(}\PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CWT}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{C\PYZus{}T}
+             \PY{n}{results}\PY{p}{[}\PY{p}{(}\PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SRHT}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{S\PYZus{}T}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Testing design matrix (100000,10)
+Testing density 0.01
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.05
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.1
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.25
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.5
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.75
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 1.0
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing design matrix (100000,100)
+Testing density 0.01
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.05
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.1
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.25
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.5
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.75
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 1.0
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing design matrix (100000,250)
+Testing density 0.01
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.05
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.1
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.25
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.5
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.75
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 1.0
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{250}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sketch time vs Data density}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{parameters} \PY{o+ow}{in} \PY{n}{results}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{n} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{parameters}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n}{d} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{parameters}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{method} \PY{o}{=} \PY{n}{parameters}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+             
+             \PY{k}{if} \PY{n}{method} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CWT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{n}{col} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C0}\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{col} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C1}\PY{l+s+s1}{\PYZsq{}}
+             
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{o}{*}\PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{results}\PY{p}{[}\PY{n}{parameters}\PY{p}{]}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                     \PY{n}{label}\PY{o}{=}\PY{p}{(}\PY{n}{parameters}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{col}\PY{p}{)}
+             
+         \PY{n}{handles}\PY{p}{,}\PY{n}{labels} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}legend\PYZus{}handles\PYZus{}labels}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}ax.set\PYZus{}yscale(\PYZsq{}log\PYZsq{})}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Density}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time (seconds)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} <matplotlib.legend.Legend at 0x7f2840eff780>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{\texorpdfstring{Testing
+\(n=500,000\)}{Testing n=500,000}}\label{testing-n500000}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num trials}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{5}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rows}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{p}{[}\PY{l+m+mi}{500000}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{250}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{density}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{p}{[}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.25}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n}{results} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         
+         \PY{k}{for} \PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols} \PY{o+ow}{in} \PY{n}{itertools}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{n}{param\PYZus{}grid}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rows}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{n\PYZus{}trials} \PY{o}{=} \PY{n}{param\PYZus{}grid}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing design matrix (}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols}\PY{p}{)}\PY{p}{)}
+             \PY{n}{sketch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{n}{n\PYZus{}cols}
+             \PY{n}{C\PYZus{}T}\PY{p}{,} \PY{n}{S\PYZus{}T} \PY{o}{=}  \PY{n}{test\PYZus{}time\PYZus{}sparsity}\PY{p}{(}\PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols}\PY{p}{,} \PY{n}{n\PYZus{}trials}\PY{p}{,}\PY{n}{sketch\PYZus{}size}\PY{p}{,}\PY{n}{param\PYZus{}grid}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{density}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{results}\PY{p}{[}\PY{p}{(}\PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CWT}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{C\PYZus{}T}
+             \PY{n}{results}\PY{p}{[}\PY{p}{(}\PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SRHT}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{S\PYZus{}T}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Testing design matrix (500000,10)
+Testing density 0.01
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.05
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.1
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.25
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.5
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.75
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 1.0
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing design matrix (500000,100)
+Testing density 0.01
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.05
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.1
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.25
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.5
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.75
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 1.0
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing design matrix (500000,250)
+Testing density 0.01
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.05
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.1
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.25
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.5
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.75
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 1.0
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{250}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sketch time vs Data density}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{parameters} \PY{o+ow}{in} \PY{n}{results}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{n} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{parameters}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n}{d} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{parameters}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{method} \PY{o}{=} \PY{n}{parameters}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+             
+             \PY{k}{if} \PY{n}{method} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CWT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{n}{col} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C0}\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{col} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C1}\PY{l+s+s1}{\PYZsq{}}
+             
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{o}{*}\PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{results}\PY{p}{[}\PY{n}{parameters}\PY{p}{]}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                     \PY{n}{label}\PY{o}{=}\PY{p}{(}\PY{n}{parameters}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{col}\PY{p}{)}
+             
+         \PY{n}{handles}\PY{p}{,}\PY{n}{labels} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}legend\PYZus{}handles\PYZus{}labels}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}ax.set\PYZus{}yscale(\PYZsq{}log\PYZsq{})}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Density}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{log Time (seconds)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} <matplotlib.legend.Legend at 0x7f2840ff3588>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{\texorpdfstring{Testing
+\(n = 1000000\)}{Testing n = 1000000}}\label{testing-n-1000000}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num trials}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{5}\PY{p}{,}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rows}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1000000}\PY{p}{]}\PY{p}{,}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{250}\PY{p}{]}\PY{p}{,}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{density}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{p}{[}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.25}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}
+          \PY{p}{\PYZcb{}}
+          
+          \PY{n}{results} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+          
+          \PY{k}{for} \PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols} \PY{o+ow}{in} \PY{n}{itertools}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{n}{param\PYZus{}grid}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rows}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+              \PY{n}{n\PYZus{}trials} \PY{o}{=} \PY{n}{param\PYZus{}grid}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing design matrix (}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols}\PY{p}{)}\PY{p}{)}
+              \PY{n}{sketch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{n}{n\PYZus{}cols}
+              \PY{n}{C\PYZus{}T}\PY{p}{,} \PY{n}{S\PYZus{}T} \PY{o}{=}  \PY{n}{test\PYZus{}time\PYZus{}sparsity}\PY{p}{(}\PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols}\PY{p}{,} \PY{n}{n\PYZus{}trials}\PY{p}{,}\PY{n}{sketch\PYZus{}size}\PY{p}{,}\PY{n}{param\PYZus{}grid}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{density}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+              \PY{n}{results}\PY{p}{[}\PY{p}{(}\PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CWT}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{C\PYZus{}T}
+              \PY{n}{results}\PY{p}{[}\PY{p}{(}\PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SRHT}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{S\PYZus{}T}
+              
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Testing design matrix (1000000,10)
+Testing density 0.01
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.05
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.1
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.25
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.5
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.75
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 1.0
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing design matrix (1000000,100)
+Testing density 0.01
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.05
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.1
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.25
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.5
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.75
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 1.0
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing design matrix (1000000,250)
+Testing density 0.01
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.05
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.1
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.25
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.5
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 0.75
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+Testing density 1.0
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Trial no.  3
+Trial no.  4
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{250}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sketch time vs Data density}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{parameters} \PY{o+ow}{in} \PY{n}{results}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{n} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{parameters}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n}{d} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{parameters}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{method} \PY{o}{=} \PY{n}{parameters}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+             
+             \PY{k}{if} \PY{n}{method} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CWT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{n}{col} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C0}\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{col} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C1}\PY{l+s+s1}{\PYZsq{}}
+             
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{o}{*}\PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{results}\PY{p}{[}\PY{n}{parameters}\PY{p}{]}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                     \PY{n}{label}\PY{o}{=}\PY{p}{(}\PY{n}{parameters}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{col}\PY{p}{)}
+             
+         \PY{n}{handles}\PY{p}{,}\PY{n}{labels} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}legend\PYZus{}handles\PYZus{}labels}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}ax.set\PYZus{}yscale(\PYZsq{}log\PYZsq{})}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Density}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time (seconds)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} <matplotlib.legend.Legend at 0x7f284108c470>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{\texorpdfstring{Testing \(n = 5000000\) and larger
+columns}{Testing n = 5000000 and larger columns}}\label{testing-n-5000000-and-larger-columns}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num trials}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{3}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rows}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{p}{[}\PY{l+m+mi}{5000000}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{p}{[}\PY{l+m+mi}{250}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{density}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{p}{[}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.25}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n}{results} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         
+         \PY{k}{for} \PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols} \PY{o+ow}{in} \PY{n}{itertools}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{n}{param\PYZus{}grid}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rows}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{n\PYZus{}trials} \PY{o}{=} \PY{n}{param\PYZus{}grid}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing design matrix (}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols}\PY{p}{)}\PY{p}{)}
+             \PY{n}{sketch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{10}\PY{o}{*}\PY{n}{n\PYZus{}cols}
+             \PY{n}{C\PYZus{}T}\PY{p}{,} \PY{n}{S\PYZus{}T} \PY{o}{=}  \PY{n}{test\PYZus{}time\PYZus{}sparsity}\PY{p}{(}\PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols}\PY{p}{,} \PY{n}{n\PYZus{}trials}\PY{p}{,}\PY{n}{sketch\PYZus{}size}\PY{p}{,}\PY{n}{param\PYZus{}grid}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{density}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{results}\PY{p}{[}\PY{p}{(}\PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CWT}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{C\PYZus{}T}
+             \PY{n}{results}\PY{p}{[}\PY{p}{(}\PY{n}{n\PYZus{}rows}\PY{p}{,} \PY{n}{n\PYZus{}cols}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SRHT}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{S\PYZus{}T}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Testing design matrix (5000000,250)
+Testing density 0.01
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Testing density 0.05
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Testing density 0.1
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Testing density 0.25
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Testing density 0.5
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Testing density 0.75
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Testing density 1.0
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Testing design matrix (5000000,500)
+Testing density 0.01
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Testing density 0.05
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Testing density 0.1
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Testing density 0.25
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Testing density 0.5
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Testing density 0.75
+Trial no.  0
+Trial no.  1
+Trial no.  2
+Testing density 1.0
+Trial no.  0
+Trial no.  1
+Trial no.  2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{results}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}108}]:} \{(5000000, 250, 'CWT'): \{'0.01': 0.05040337619720958,
+            '0.05': 0.08059025019756519,
+            '0.1': 0.10914326839847491,
+            '0.25': 0.17112093059695327,
+            '0.5': 0.24584793660324067,
+            '0.75': 0.23970097380224614,
+            '1.0': 0.25598898680182175\},
+           (5000000, 250, 'SRHT'): \{'0.01': 1.1910754851996899,
+            '0.05': 1.1886414893961046,
+            '0.1': 1.1650244535994716,
+            '0.25': 1.2006518864014653,
+            '0.5': 1.1741346601978875,
+            '0.75': 1.1897705338022206,
+            '1.0': 1.1660470599948893\},
+           (5000000, 500, 'CWT'): \{'0.01': 0.05008603659807705,
+            '0.05': 0.08285434240242466,
+            '0.1': 0.10913436699775048,
+            '0.25': 0.16932049380266107,
+            '0.5': 0.24227714420412666,
+            '0.75': 0.23600110199768096,
+            '1.0': 0.25780055920477024\},
+           (5000000, 500, 'SRHT'): \{'0.01': 1.17195874179597,
+            '0.05': 1.1848586236010306,
+            '0.1': 1.193942575599067,
+            '0.25': 1.180861529801041,
+            '0.5': 1.204450481000822,
+            '0.75': 1.1886099253955762,
+            '1.0': 1.2091101652011276\}\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{250}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sketch time vs Data density}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{parameters} \PY{o+ow}{in} \PY{n}{results}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{n} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{parameters}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n}{d} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{parameters}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{method} \PY{o}{=} \PY{n}{parameters}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+             
+             \PY{k}{if} \PY{n}{method} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CWT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{n}{col} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C0}\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{col} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C1}\PY{l+s+s1}{\PYZsq{}}
+             
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{o}{*}\PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{results}\PY{p}{[}\PY{n}{parameters}\PY{p}{]}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                     \PY{n}{label}\PY{o}{=}\PY{p}{(}\PY{n}{parameters}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{col}\PY{p}{)}
+             
+         \PY{n}{handles}\PY{p}{,}\PY{n}{labels} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}legend\PYZus{}handles\PYZus{}labels}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}ax.set\PYZus{}yscale(\PYZsq{}log\PYZsq{})}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Density}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time (seconds)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} sort both labels and handles by labels}
+         \PY{n}{labels}\PY{p}{,} \PY{n}{handles} \PY{o}{=} \PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n+nb}{sorted}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{labels}\PY{p}{,} \PY{n}{handles}\PY{p}{)}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{t}\PY{p}{:} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{handles}\PY{p}{,} \PY{n}{labels}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} <matplotlib.legend.Legend at 0x7f2840dea828>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

@@ -58,8 +58,7 @@ def srht_transform(input_matrix, sketch_size, seed=None):
     References
     -------------
     [1] - https://arxiv.org/abs/1411.4357
-    [2] - https://github.com/EMS-TU-Ilmenau/fastmat
-    [3] - https://github.com/nbarbey/fht
+    [2] - https://bitbucket.org/vegarant/fastwht
     
     
     

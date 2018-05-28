@@ -15,6 +15,11 @@ def countSketch_elt_stream(matrixA, sketch_size):
     for ii,jj in zip(nonzero_rows,nonzero_cols):
         bucket = hashedIndices[ii]
         sketch[bucket, jj] += randSigns[ii]*matrixA[ii,jj]
+    #for ii in range(nonzero_rows):
+    #    for jj in range(nonzero_cols):
+    #        bucket = hashedIndices[ii]
+    #        sketch[bucket, jj] += randSigns[ii]*matrixA[ii,jj]
+    # Above commented code might be marginally faster
     return sketch
 
 

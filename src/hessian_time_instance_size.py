@@ -13,7 +13,7 @@ from pprint import pprint
 import numpy as np
 from scipy.linalg import clarkson_woodruff_transform
 from library.srht import srht_transform
-from library.countSketch import countSketch, sort_row_order
+from library.countSketch import countSketch_elt_stream, countSketch, sort_row_order
 from timeit import default_timer as timer
 import scipy.sparse
 from scipy.sparse import random
@@ -128,27 +128,26 @@ for iter_no in range(n_samples):
         srht_output["distortion"][idx] += (sketch_norm/true_norm)
         print("SRHT prod time  on ({0:2d},{1:3d}): {2:4f}".format(num_rows, dimension, product_time))
         print("SRHT distortion on ({0:2d},{1:3d}): {2:4f}".format(num_rows, dimension,sketch_norm/true_norm))
+ 
 
-        # CWT sketching not sparse
-        #start = timer()
-        #S_A = clarkson_woodruff_transform(input_matrix=matrix_as_array, sketch_size=srht_reduced_rows)
-        #sketch_time = timer() - start
-        #cwt_output["sketch time"][idx] += sketch_time
-        #print("CWT-scipy  sketch time on ({0:2d},{1:3d}): {2:4f}".format(num_rows, dimension,\
-        #                                                                 sketch_time))
-        #print("CWT Sketch type: {}".format(type(S_A)))
-        #start = timer()
-        #sketch_val = S_A.T@S_A
-        #product_time = timer() - start
-        #cwt_output["product time"][idx] += product_time
-        #sketch_norm = np.linalg.norm(sketch_val, ord='fro')**2
-        #cwt_output["norms"][idx] = sketch_norm
-        #cwt_output["distortion"][idx] += (sketch_norm/true_norm)
-        #print("CWT-SciPy prod time  on ({0:2d},{1:3d}): {2:4f}".format(num_rows, dimension, product_time))
-        #print("CWT-SciPy distortion on ({0:2d},{1:3d}): {2:4f}".format(num_rows, dimension,sketch_norm/true_norm)\
-        #    )                                                                                                             
+        # CWT sketch with elt strea
+        print("Using sketch size {}".format(srht_reduced_rows))
+        start = timer()
+        S_A = countSketch_elt_stream(matrix_as_array, srht_reduced_rows)
+        sketch_time = timer() - start
+        sketch_time = timer() - start
+        print("CWT-stream sketch time on ({0:2d},{1:3d}): {2:4f}".format(num_rows, dimension,\
+                                                                   sketch_time))
+        product_time = timer()
+        sketch_val = S_A.T@S_A
+        product_time = timer() - start
+        #srht_output["product time"][idx] += product_time
+        sketch_norm = np.linalg.norm(sketch_val, ord='fro')**2
+        #srht_output["norms"][idx] = sketch_norm
+        #srht_output["distortion"][idx] += (sketch_norm/true_norm)
+        print("CWT-stream prod time  on ({0:2d},{1:3d}): {2:4f}".format(num_rows, dimension, product_time))
+        print("CWT-stream distortion on ({0:2d},{1:3d}): {2:4f}".format(num_rows, dimension,sketch_norm/true_norm))
         
-    
         # CWT sketching
         print("Using sketch size {}".format(cwt_reduced_rows))
         tidy_data = sort_row_order(matrix)
